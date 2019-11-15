@@ -122,7 +122,7 @@ describe Csvlint::Validator do
         :col_sep => ",",
         :row_sep => :auto,
         :quote_char => '"',
-        :skip_blanks => false
+        :skip_blanks => true
       })
     end
 
@@ -137,7 +137,7 @@ describe Csvlint::Validator do
         :col_sep => "\t",
         :row_sep => "\n",
         :quote_char => "'",
-        :skip_blanks => false
+        :skip_blanks => true
       })
     end
 
@@ -403,7 +403,7 @@ describe Csvlint::Validator do
                               :col_sep => ",",
                               :row_sep => :auto,
                               :quote_char => '"',
-                              :skip_blanks => false
+                              :skip_blanks => true
                           })
     end
 
@@ -418,7 +418,7 @@ describe Csvlint::Validator do
                               :col_sep => "\t",
                               :row_sep => "\n",
                               :quote_char => "'",
-                              :skip_blanks => false
+                              :skip_blanks => true
                           })
     end
 

@@ -81,7 +81,7 @@ module Csvlint
           valid_headers = @titles ? @titles.map{ |l,v| v if Column.languages_match(l, lang) }.flatten : []
           unless valid_headers.include? header
             if strict
-              build_errors(:invalid_header, :schema, 1, @number, header, @titles) 
+              build_errors(:invalid_header, :schema, 1, @number, header, @titles)
             else
               build_warnings(:invalid_header, :schema, 1, @number, header, @titles)
             end
@@ -95,7 +95,7 @@ module Csvlint
         string_value = string_value || @default
         if null.include? string_value
           validate_required(nil, row)
-          values = nil
+          values = @separator.nil? ? nil : []
           return values
         else
           string_values = @separator.nil? ? [string_value] : string_value.split(@separator)
@@ -147,7 +147,7 @@ module Csvlint
 
         def validate_required(value, row)
           if @required && value.nil?
-            build_errors(:required, :schema, row, number, value, { "required" => @required }) 
+            build_errors(:required, :schema, row, number, value, { "required" => @required })
             return false
           end
           return true
@@ -161,15 +161,15 @@ module Csvlint
             length = value.length / 2 if datatype["@id"] == "http://www.w3.org/2001/XMLSchema#hexBinary" || datatype["base"] == "http://www.w3.org/2001/XMLSchema#hexBinary"
 
             if datatype["minLength"] && length < datatype["minLength"]
-              build_errors(:min_length, :schema, row, number, value, { "minLength" => datatype["minLength"] }) 
+              build_errors(:min_length, :schema, row, number, value, { "minLength" => datatype["minLength"] })
               valid = false
             end
             if datatype["maxLength"] && length > datatype["maxLength"]
-              build_errors(:max_length, :schema, row, number, value, { "maxLength" => datatype["maxLength"] }) 
+              build_errors(:max_length, :schema, row, number, value, { "maxLength" => datatype["maxLength"] })
               valid = false
             end
             if datatype["length"] && length != datatype["length"]
-              build_errors(:length, :schema, row, number, value, { "length" => datatype["length"] }) 
+              build_errors(:length, :schema, row, number, value, { "length" => datatype["length"] })
               valid = false
             end
           end
@@ -179,7 +179,7 @@ module Csvlint
         def validate_format(value, row)
           if datatype["format"]
             unless DATATYPE_FORMAT_VALIDATION[datatype["base"]].call(value, datatype["format"])
-              build_errors(:format, :schema, row, number, value, { "format" => datatype["format"] }) 
+              build_errors(:format, :schema, row, number, value, { "format" => datatype["format"] })
               return false
             end
           end
@@ -189,19 +189,19 @@ module Csvlint
         def validate_value(value, row)
           valid = true
           if datatype["minInclusive"] && ((value.is_a? Hash) ? (value[:dateTime] < datatype["minInclusive"][:dateTime]) : (value < datatype["minInclusive"]))
-            build_errors(:min_inclusive, :schema, row, number, value, { "minInclusive" => datatype["minInclusive"] }) 
+            build_errors(:min_inclusive, :schema, row, number, value, { "minInclusive" => datatype["minInclusive"] })
             valid = false
           end
           if datatype["maxInclusive"] && ((value.is_a? Hash) ? (value[:dateTime] > datatype["maxInclusive"][:dateTime]) : (value > datatype["maxInclusive"]))
-            build_errors(:max_inclusive, :schema, row, number, value, { "maxInclusive" => datatype["maxInclusive"] }) 
+            build_errors(:max_inclusive, :schema, row, number, value, { "maxInclusive" => datatype["maxInclusive"] })
             valid = false
           end
           if datatype["minExclusive"] && ((value.is_a? Hash) ? (value[:dateTime] <= datatype["minExclusive"][:dateTime]) : (value <= datatype["minExclusive"]))
-            build_errors(:min_exclusive, :schema, row, number, value, { "minExclusive" => datatype["minExclusive"] }) 
+            build_errors(:min_exclusive, :schema, row, number, value, { "minExclusive" => datatype["minExclusive"] })
             valid = false
           end
           if datatype["maxExclusive"] && ((value.is_a? Hash) ? (value[:dateTime] >= datatype["maxExclusive"][:dateTime]) : (value >= datatype["maxExclusive"]))
-            build_errors(:max_exclusive, :schema, row, number, value, { "maxExclusive" => datatype["maxExclusive"] }) 
+            build_errors(:max_exclusive, :schema, row, number, value, { "maxExclusive" => datatype["maxExclusive"] })
             valid = false
           end
           return valid

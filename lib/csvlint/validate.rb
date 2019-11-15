@@ -104,6 +104,7 @@ module Csvlint
     end
 
     def validate_stream
+      return if @source.nil?
       @current_line = 1
       @source.each_line do |line|
         break if line_limit_reached?
@@ -250,7 +251,7 @@ module Csvlint
         if rel == "describedby" && param == "type" && ["application/csvm+json", "application/ld+json", "application/json"].include?(param_value)
           begin
             url = URI.join(@source_url, uri)
-            schema = Schema.load_from_json(url)
+            schema = Schema.load_from_uri(url, true)
             if schema.instance_of? Csvlint::Csvw::TableGroup
               if schema.tables[@source_url]
                 @schema = schema
@@ -339,7 +340,7 @@ module Csvlint
       #TODO 1 - this is a change in logic, rather than straight refactor of previous error building, however original logic is bonkers
       #TODO 2 - using .kind_of? is a very ugly fix here and it meant to work around instances where :auto symbol is preserved in @csv_options
       type = fetch_error(csvException)
-      if !@csv_options[:row_sep].kind_of?(Symbol) && [:unclosed_quote,:stray_quote].include?(type) && !@input.match(@csv_options[:row_sep])
+      if !@csv_options[:row_sep].kind_of?(Symbol) && [:unclosed_quote, :stray_quote].include?(type) && !@input.match(@csv_options[:row_sep])
         build_linebreak_error
       else
         build_errors(type, :structure, lineNo, nil, errChars)
@@ -460,7 +461,7 @@ module Csvlint
           path = template.expand('url' => @source_url)
           url = URI.join(@source_url, path)
           url = File.new(url.to_s.sub(/^file:/, "")) if url.to_s =~ /^file:/
-          schema = Schema.load_from_json(url)
+          schema = Schema.load_from_uri(url, true)
           if schema.instance_of? Csvlint::Csvw::TableGroup
             if schema.tables[@source_url]
               @schema = schema

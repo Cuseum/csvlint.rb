@@ -137,8 +137,8 @@ module Csvlint
             u
           end,
           'http://www.w3.org/2001/XMLSchema#boolean' => lambda do |value, constraints|
-            return true if ['true', '1'].include? value
-            return false if ['false', '0'].include? value
+            return true if ['true', '1', 'Y'].include? value
+            return false if ['false', '0', 'N'].include? value
             raise ArgumentError
           end,
           'http://www.w3.org/2001/XMLSchema#nonPositiveInteger' => lambda do |value, constraints|

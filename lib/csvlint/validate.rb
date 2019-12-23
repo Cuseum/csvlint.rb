@@ -163,7 +163,7 @@ module Csvlint
     def validate_line(input = nil, index = nil)
       @input = input
       single_col = false
-      line = index.present? ? index : 0
+      line = index || 0
       @encoding = input.encoding.to_s
       report_line_breaks(line)
       parse_contents(input, line)
@@ -176,7 +176,7 @@ module Csvlint
     # analyses the provided csv and builds errors, warnings and info messages
     def parse_contents(stream, line = nil)
       # parse_contents will parse one line and apply headers, formats methods and error handle as appropriate
-      current_line = line.present? ? line : 1
+      current_line = line || 1
       all_errors = []
 
       @csv_options[:encoding] = @encoding
@@ -553,7 +553,7 @@ module Csvlint
     end
 
     def line_limit_reached?
-      @limit_lines.present? && @current_line > @limit_lines
+      @limit_lines.nil? ? false : @current_line > @limit_lines
     end
 
     def get_line_break(line)

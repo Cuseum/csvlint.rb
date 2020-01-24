@@ -31,7 +31,7 @@ end
 
 File.open(SCRIPT_FILE_PATH, 'w') do |file|
 	File.chmod(0755, SCRIPT_FILE_PATH)
-	manifest = JSON.parse( open("https://www.w3.org/2013/csvw/tests/manifest-validation.jsonld").read )
+	manifest = JSON.parse( open("http://www.w3.org/2013/csvw/tests/manifest-validation.jsonld").read )
 	manifest["entries"].each do |entry|
 		type = "valid"
 		case entry["type"]
@@ -54,10 +54,10 @@ File.open(SCRIPT_FILE_PATH, 'w') do |file|
 end unless File.exist? SCRIPT_FILE_PATH
 
 File.open(VALIDATION_FEATURE_FILE_PATH, 'w') do |file|
-	file.puts "# Auto-generated file based on standard validation CSVW tests from https://www.w3.org/2013/csvw/tests/manifest-validation.jsonld"
+	file.puts "# Auto-generated file based on standard validation CSVW tests from http://www.w3.org/2013/csvw/tests/manifest-validation.jsonld"
 	file.puts ""
 
-	manifest = JSON.parse( open("https://www.w3.org/2013/csvw/tests/manifest-validation.jsonld").read )
+	manifest = JSON.parse( open("http://www.w3.org/2013/csvw/tests/manifest-validation.jsonld").read )
 
 	file.puts "Feature: #{manifest["label"]}"
 	file.puts ""

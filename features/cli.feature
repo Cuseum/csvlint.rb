@@ -242,9 +242,9 @@ NO JSON HERE SON
   Scenario: CSVw table Schema
     Given I have stubbed stdin to contain nothing
     And I have a metadata file called "csvw/countries.json"
-    And the metadata is stored at the url "http://w3c.github.io/csvw/tests/countries.json"
-    And I have a file called "csvw/countries.csv" at the url "http://w3c.github.io/csvw/tests/countries.csv"
-    And I have a file called "csvw/country_slice.csv" at the url "http://w3c.github.io/csvw/tests/country_slice.csv"
-    When I run `csvlint --schema http://w3c.github.io/csvw/tests/countries.json`
-    Then the output should contain "http://w3c.github.io/csvw/tests/countries.csv is VALID"
-    And the output should contain "http://w3c.github.io/csvw/tests/country_slice.csv is VALID"
+    And the metadata is stored at the url "https://w3c.github.io/csvw/tests/countries.json"
+    And I have a file called "csvw/countries.csv" at the url "https://w3c.github.io/csvw/tests/countries.csv"
+    And I have a file called "csvw/country_slice.csv" at the url "https://w3c.github.io/csvw/tests/country_slice.csv"
+    When I run `csvlint --schema https://w3c.github.io/csvw/tests/countries.json`
+    Then the output should contain "https://w3c.github.io/csvw/tests/countries.csv is VALID"
+    And the output should contain "https://w3c.github.io/csvw/tests/country_slice.csv is VALID"

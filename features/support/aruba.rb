@@ -1,5 +1,5 @@
 require 'aruba'
-require 'aruba/in_process'
+require 'aruba/processes/in_process'
 require 'aruba/cucumber'
 
 require 'csvlint/cli'

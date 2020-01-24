@@ -1,4 +1,4 @@
-[![Build Status](http://img.shields.io/travis/theodi/csvlint.rb.svg)](https://travis-ci.org/theodi/csvlint.rb)
+[![Build Status](http://img.shields.io/travis/theodi/csvlint.rb.svg)](https://travis-ci.org/Cuseum/csvlint.rb)
 [![Dependency Status](http://img.shields.io/gemnasium/theodi/csvlint.rb.svg)](https://gemnasium.com/theodi/csvlint.rb)
 [![Coverage Status](http://img.shields.io/coveralls/theodi/csvlint.rb.svg)](https://coveralls.io/r/theodi/csvlint.rb)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://theodi.mit-license.org)
@@ -10,10 +10,10 @@ A ruby gem to support validating CSV files to check their syntax and contents. Y
 
 ## Summary of features
 
-* Validation that checks the structural formatting of a CSV file  
+* Validation that checks the structural formatting of a CSV file
 * Validation of a delimiter-separated values (dsv) file accesible via URL, File, or an IO-style object (e.g. StringIO)
-* Validation against [CSV dialects](http://dataprotocols.org/csv-dialect/)  
-* Validation against multiple schema standards; [JSON Table Schema](https://github.com/theodi/csvlint.rb/blob/master/README.md#json-table-schema-support) and [CSV on the Web](https://github.com/theodi/csvlint.rb/blob/master/README.md#csv-on-the-web-validation-support) 
+* Validation against [CSV dialects](http://dataprotocols.org/csv-dialect/)
+* Validation against multiple schema standards; [JSON Table Schema](https://github.com/theodi/csvlint.rb/blob/master/README.md#json-table-schema-support) and [CSV on the Web](https://github.com/theodi/csvlint.rb/blob/master/README.md#csv-on-the-web-validation-support)
 
 ## Development
 
@@ -210,7 +210,7 @@ An example JSON Table Schema schema file is:
 				"name": "price",
 				"constraints": {
 					"required": true,
-					"minLength": 1 
+					"minLength": 1
 				}
 			},
 			{

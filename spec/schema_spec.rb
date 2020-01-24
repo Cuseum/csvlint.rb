@@ -139,6 +139,15 @@ describe Csvlint::Schema do
 
     end
 
+    it "should not care about headers order" do
+      minimum = Csvlint::Field.new("minimum", { "minLength" => 3 } )
+      required = Csvlint::Field.new("required", { "required" => true } )
+      schema = Csvlint::Schema.new("http://example.org", [minimum, required] )
+
+      expect( schema.validate_header(["required", "minimum"]) ).to eql(true)
+      expect( schema.warnings.size ).to eql(0)
+    end
+
   end
 
   context "when parsing JSON Tables" do

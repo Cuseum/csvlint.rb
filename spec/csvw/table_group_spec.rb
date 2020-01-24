@@ -36,7 +36,7 @@ describe Csvlint::Csvw::TableGroup do
 }
     EOL
     json = JSON.parse( @metadata )
-    table_group = Csvlint::Csvw::TableGroup.from_json("http://w3c.github.io/csvw/tests/test040-metadata.json", json)
+    table_group = Csvlint::Csvw::TableGroup.from_json("https://w3c.github.io/csvw/tests/test040-metadata.json", json)
 
     expect(table_group.class).to eq(Csvlint::Csvw::TableGroup)
     expect(table_group.annotations.length).to eq(0)
@@ -46,9 +46,9 @@ describe Csvlint::Csvw::TableGroup do
     expect(table_group.warnings[0].content).to eq("null: true")
 
     expect(table_group.tables.length).to eq(1)
-    expect(table_group.tables["http://w3c.github.io/csvw/tests/test040.csv"]).to be_a(Csvlint::Csvw::Table)
+    expect(table_group.tables["https://w3c.github.io/csvw/tests/test040.csv"]).to be_a(Csvlint::Csvw::Table)
 
-    table = table_group.tables["http://w3c.github.io/csvw/tests/test040.csv"]
+    table = table_group.tables["https://w3c.github.io/csvw/tests/test040.csv"]
     expect(table.columns.length).to eq(10)
     expect(table.columns[0].null).to eq([""])
   end
@@ -111,31 +111,31 @@ describe Csvlint::Csvw::TableGroup do
   }]
 }
   EOL
-      stub_request(:get, "http://w3c.github.io/csvw/tests/countries.json").to_return(:status => 200, :body => @metadata)
+      stub_request(:get, "https://w3c.github.io/csvw/tests/countries.json").to_return(:status => 200, :body => @metadata)
       @countries=<<-EOL
 countryCode,latitude,longitude,name
 AD,42.546245,1.601554,Andorra
 AE,23.424076,53.847818,"United Arab Emirates"
 AF,33.93911,67.709953,Afghanistan
   EOL
-      stub_request(:get, "http://w3c.github.io/csvw/tests/countries.csv").to_return(:status => 200, :body => @countries)
+      stub_request(:get, "https://w3c.github.io/csvw/tests/countries.csv").to_return(:status => 200, :body => @countries)
       @country_slice=<<-EOL
 countryRef,year,population
 AF,1960,9616353
 AF,1961,9799379
 AF,1962,9989846
   EOL
-      stub_request(:get, "http://w3c.github.io/csvw/tests/country_slice.csv").to_return(:status => 200, :body => @country_slice)
+      stub_request(:get, "https://w3c.github.io/csvw/tests/country_slice.csv").to_return(:status => 200, :body => @country_slice)
     end
 
     it "should create a table group from pre-parsed CSVW metadata" do
       json = JSON.parse( @metadata )
-      table_group = Csvlint::Csvw::TableGroup.from_json("http://w3c.github.io/csvw/tests/countries.json", json)
+      table_group = Csvlint::Csvw::TableGroup.from_json("https://w3c.github.io/csvw/tests/countries.json", json)
 
       expect(table_group.class).to eq(Csvlint::Csvw::TableGroup)
       expect(table_group.id).to eq(nil)
       expect(table_group.tables.length).to eq(2)
-      expect(table_group.tables["http://w3c.github.io/csvw/tests/countries.csv"]).to be_a(Csvlint::Csvw::Table)
+      expect(table_group.tables["https://w3c.github.io/csvw/tests/countries.csv"]).to be_a(Csvlint::Csvw::Table)
       expect(table_group.notes.length).to eq(0)
       expect(table_group.annotations.length).to eq(0)
     end
